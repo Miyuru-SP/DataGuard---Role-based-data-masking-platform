@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DataGuard — Secure Query Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:        #0f1117;
+    --surface:   #1a1d27;
+    --border:    #2a2d3e;
+    --accent:    #4f6ef7;
+    --accent-dim:#2a3a8f;
+    --success:   #22c55e;
+    --warning:   #f59e0b;
+    --danger:    #ef4444;
+    --text:      #e8eaf0;
+    --muted:     #6b7280;
+    --mono:      'JetBrains Mono', monospace;
+    --sans:      'Inter', sans-serif;
+  }
+
+  body {
+    font-family: var(--sans);
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .login-wrap {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .brand {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .brand-icon {
+    width: 52px; height: 52px;
+    background: var(--accent-dim);
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+
+  .brand-icon svg { width: 26px; height: 26px; stroke: var(--accent); fill: none; stroke-width: 1.8; }
+
+  .brand h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--text);
+  }
+
+  .brand p {
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-family: var(--mono);
+    margin-top: 4px;
+  }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+  }
+
+  .field { margin-bottom: 1.25rem; }
+
+  label {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+    font-family: var(--mono);
+  }
+
+  input[type="text"], input[type="password"] {
+    width: 100%;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px 14px;
+    color: var(--text);
+    font-size: 0.9rem;
+    font-family: var(--mono);
+    outline: none;
+    transition: border-color 0.15s;
+  }
+
+  input:focus { border-color: var(--accent); }
+
+  .btn-primary {
+    width: 100%;
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 11px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    font-family: var(--sans);
+    transition: opacity 0.15s;
+  }
+
+  .btn-primary:hover { opacity: 0.88; }
+
+  .error {
+    background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 0.82rem;
+    color: #fca5a5;
+    margin-bottom: 1.25rem;
+    font-family: var(--mono);
+  }
+
+  .demo-creds {
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1.25rem;
+  }
+
+  .demo-creds p {
+    font-size: 0.72rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 10px;
+    font-family: var(--mono);
+  }
+
+  .cred-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 6px;
+    margin-bottom: 4px;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+
+  .cred-row:hover { background: var(--border); }
+
+  .cred-role {
+    font-size: 0.78rem;
+    font-weight: 500;
+    font-family: var(--mono);
+  }
+
+  .cred-info {
+    font-size: 0.75rem;
+    color: var(--muted);
+    font-family: var(--mono);
+  }
+
+  .badge {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-weight: 600;
+    font-family: var(--mono);
+    text-transform: uppercase;
+  }
+
+  .badge-admin   { background: rgba(239,68,68,0.15);  color: #fca5a5; }
+  .badge-analyst { background: rgba(245,158,11,0.15); color: #fcd34d; }
+  .badge-viewer  { background: rgba(79,110,247,0.15); color: #93c5fd; }
+</style>
+</head>
+<body>
+
+<div class="login-wrap">
+  <div class="brand">
+    <div class="brand-icon">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="11" width="18" height="11" rx="2"/>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
+        <circle cx="12" cy="16" r="1.5" fill="currentColor" stroke="none"/>
+      </svg>
+    </div>
+    <h1>DataGuard</h1>
+    <p>role-based data masking platform</p>
+  </div>
+
+  <div class="card">
+    {% if error %}
+    <div class="error">⚠ {{ error }}</div>
+    {% endif %}
+
+    <form method="POST">
+      <div class="field">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="enter username" autocomplete="username" autofocus>
+      </div>
+      <div class="field">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="enter password" autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-primary">Sign in →</button>
+    </form>
+
+    <div class="demo-creds">
+      <p>Demo credentials — click to fill</p>
+
+      <div class="cred-row" onclick="fill('admin','admin123')">
+        <span class="cred-role"><span class="badge badge-admin">Admin</span></span>
+        <span class="cred-info">admin / admin123 — full access</span>
+      </div>
+      <div class="cred-row" onclick="fill('analyst','analyst123')">
+        <span class="cred-role"><span class="badge badge-analyst">Analyst</span></span>
+        <span class="cred-info">analyst / analyst123 — NIC masked</span>
+      </div>
+      <div class="cred-row" onclick="fill('viewer','viewer123')">
+        <span class="cred-role"><span class="badge badge-viewer">Viewer</span></span>
+        <span class="cred-info">viewer / viewer123 — restricted</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function fill(u, p) {
+  document.querySelector('[name="username"]').value = u;
+  document.querySelector('[name="password"]').value = p;
+}
+</script>
+</body>
+</html>

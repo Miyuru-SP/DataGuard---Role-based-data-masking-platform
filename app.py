@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, j
 import re
 
 app = Flask(__name__)
-app.secret_key = "datamasking_secret_2026"
+app.secret_key = "datamasking_secret_2025"
 
 # ── User store ──────────────────────────────────────────────────────────────
 USERS = {

@@ -65,14 +65,6 @@ http://localhost:5000
 
 ---
 
-## CV project description (ready to paste)
-
-**Data Masking & Secure Query Platform** *(2025)*  
-Designed and developed a role-based data privacy enforcement system in Python (Flask) that automatically masks PII fields (NIC, email, salary) based on a user's assigned role at query time. Implemented a centralised masking policy engine supporting Admin, Analyst, and Viewer access tiers. Demonstrated core data governance concepts including data minimisation, least privilege, and query audit logging — aligned with GDPR and data protection best practices.  
-*Technologies: Python, Flask, RBAC, PII Masking, Data Governance*
-
----
-
 ## Project structure
 
 ```
